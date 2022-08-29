@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: game
+  namespace: testing
+  annotations:
+    nginx.ingress.kubernetes.io/service-weight: ''
+    nginx.ingress.kubernetes.io/ssl-redirect: 'true'
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "Authorization,Referer,User-Agent,Keep-Alive,Content-Type,accept,origin,X-Requested-With,campus-id"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, PUT, POST, DELETE, PATCH, OPTIONS"
+    nginx.ingress.kubernetes.io/http2-push-preload: "true"
+spec:
+  tls:
+  - hosts:
+      - game.test.kachi.chat
+    #secretName: lingshilive
+  rules:
+  - host: game.test.kachi.chat
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: game
+            port:
+              number: 80

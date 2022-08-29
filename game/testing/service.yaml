@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: game
+  namespace: testing
+  labels:
+    testing: game
+spec:
+  selector:
+    testing: game
+  ports:
+  - protocol: TCP
+    name: http
+    port: 80
+    targetPort: 80
+  type: NodePort

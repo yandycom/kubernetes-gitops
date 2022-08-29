@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: game
+  namespace: testing
+  labels:
+    testing: game
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      testing: game
+  template:
+    metadata:
+      labels:
+        testing: game
+    spec:
+      containers:
+      - name: game
+        image: internal-registry.lingshilive.com/devops/training-api:release-v1.0.33
+        env:
+          # - name: PHPIZE_DEPS
+          #   value: >-
+          #     autoconf dpkg-dev dpkg file g++ gcc libc-dev make php7-dev
+          #     php7-pear pkgconf re2c pcre-dev pcre2-dev zlib-dev libtool
+          #     automake
+          # - name: aliyun_logs_mini-mall-backend
+          #   value: stdout
+          - name: TZ
+            value: Asia/Shanghai
+        resources:
+          requests:
+            memory: 0
+            cpu: 0
+          limits:
+            memory: "4Gi"
+            cpu: "2000m"
+        ports:
+          - protocol: TCP
+            containerPort: 9000
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always

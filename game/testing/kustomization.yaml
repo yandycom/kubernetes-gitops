@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- deployment.yaml
+- ingress.yaml
+- service.yaml
+namespace: testing
+images:
+- name: bithouse-registry-vpc.ap-southeast-1.cr.aliyuncs.com/devops/game
+  newTag: testing-bfd661ed
